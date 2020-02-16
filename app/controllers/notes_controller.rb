@@ -29,6 +29,15 @@ class NotesController < ApplicationController
     end
 
     def update
+        note = Note.find_by(id: params[:id])
+        note.update(
+            user_id: 1, 
+            title: params[:title],
+            content: params[:content],
+            tags: params[:tags]
+        )
+
+        render json: JSON.pretty_generate(NoteSerializer.new(note).serializable_hash)
     end
 
     private
