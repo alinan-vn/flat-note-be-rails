@@ -16,7 +16,7 @@ class NotesController < ApplicationController
         # note = Note.create(strong_params(params[:user_id] so on))
 
         note = Note.create(
-            user_id: 1, 
+            user_id: params[:user_id], 
             title: params[:title],
             content: params[:content],
             tags: params[:tags]
@@ -31,7 +31,7 @@ class NotesController < ApplicationController
     def update
         note = Note.find_by(id: params[:id])
         note.update(
-            user_id: 1, 
+            user_id: params[:user_id], 
             title: params[:title],
             content: params[:content],
             tags: params[:tags]
@@ -40,12 +40,37 @@ class NotesController < ApplicationController
         render json: JSON.pretty_generate(NoteSerializer.new(note).serializable_hash)
     end
 
+    def destroy
+        note = Note.delete(params[:id])
+
+        render json: Note.all
+    end
+
     private
 
     def strong_params(*args)
         params.require(:note).permit(*args)
     end
 end
+
+# def update
+#     @song = Song.find_by(id: params[:id])
+#     @song.assign_attributes(song_params(:title, :link, :artist_id, :genre_id))
+#     if @song.valid?
+#         @song.save
+#         redirect_to song_path(@song)
+#     else
+#         render :edit
+#     end
+    
+# end
+
+# def destroy
+#     @song = Song.delete(params[:id])
+#     redirect_to songs_path
+# end
+
+# ------------------------------------
 
 # def create
 #     artist = Artist.create(name: params['artistName']['name'])
