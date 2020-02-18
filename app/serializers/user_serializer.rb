@@ -9,7 +9,5 @@ class UserSerializer < ActiveModel::Serializer
         tags: note.tags
       }  
     end
-    # return JSON.pretty_generate(obj)
   end
-
 end

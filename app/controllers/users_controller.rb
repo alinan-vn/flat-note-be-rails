@@ -1,12 +1,16 @@
 class UsersController < ApplicationController
     def index
-        # users = User.all
         render json: User.all
     end
 
     def show
         user = User.find_by(id: params[:id])
-        render json: JSON.pretty_generate(UserSerializer.new(user).serializable_hash)
+
+        if user 
+            render json: JSON.pretty_generate(UserSerializer.new(user).serializable_hash)
+        else
+            render json: {id: '', username: '', error: 'No User Found'}
+        end
     end
 
     def new
