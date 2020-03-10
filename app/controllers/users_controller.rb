@@ -7,9 +7,9 @@ class UsersController < ApplicationController
         user = User.find_by(id: params[:id])
 
         if user 
-            render json: JSON.pretty_generate(UserSerializer.new(user).serializable_hash)
+            render json: user
         else
-            render json: {id: '', username: '', error: 'No User Found'}
+            render json: {error: 'No User Found'}
         end
     end
 
