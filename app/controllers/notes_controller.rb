@@ -9,7 +9,10 @@ class NotesController < ApplicationController
         render json: JSON.pretty_generate(NoteSerializer.new(note).serializable_hash)
     end
 
-    def new
+    def user_notes
+        user = User.find_by(id: params[:user_id])
+        notes = user.notes 
+        render json: notes 
     end
 
     def create
