@@ -17,6 +17,15 @@ class UsersController < ApplicationController
     end
 
     def create
+        user = User.new(username: params[:user][:username], password: params[:password])
+
+        if user.valid?
+            user.save
+            render json: user 
+        else
+            byebug
+            render json: {error: 'invalid user parameters'}
+        end
     end
 
     def edit
